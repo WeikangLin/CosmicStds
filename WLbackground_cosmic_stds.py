@@ -93,19 +93,19 @@ def fV_LCDM(z,Om,h=0.7, m_v1=0.0):
 
 
 # For sound speed and sound horizon:
-def BAO_sound_speed(z):
-    return 1./( 3*(1+1/(1+z)*3*0.02237/4/(2.472E-5) ) )**0.5     # sound speed, needs to make it general
+def BAO_sound_speed(z, omegabh2):
+    return 1./( 3*(1+1/(1+z)*3*omegabh2/4/(2.472E-5) ) )**0.5     # sound speed, needs to make it general
 
-def sound_horizon_integrand(z, Om, h, m_v1=0.0):
-    return BAO_sound_speed(z)/Ez_flat_LCDM(z, Om, h, m_v1)
+def sound_horizon_integrand(z, Om, h, omegabh2_fit, m_v1=0.0):
+    return BAO_sound_speed(z, omegabh2_fit)/Ez_flat_LCDM(z, Om, h, m_v1)
 #return BAO_sound_speed(z)/np.sqrt(1-Om-4.15E-5/h**2+Om*(1+z)**3+4.15E-5/h**2*(1+z)**4)
 
-def Delta_rH0(zstar, Deltaz, Om_fit, h_fit, m_v1_fit=0.0):
+def Delta_rH0(zstar, Deltaz, Om_fit, h_fit, omegabh2_fit, m_v1_fit=0.0):
     nll = lambda *args: sound_horizon_integrand(*args)
-    temp = integrate.quad(nll, zstar-Deltaz, zstar, args=(Om_fit, h_fit, m_v1_fit))
+    temp = integrate.quad(nll, zstar-Deltaz, zstar, args=(Om_fit, h_fit, omegabh2_fit, m_v1_fit))
     return temp[0]
 
 def rH0(zstar, Om_fit, h_fit, m_v1_fit=0.0):
     nll = lambda *args: sound_horizon_integrand(*args)
-    temp = integrate.quad(nll, zstar, np.inf, args=(Om_fit, h_fit, m_v1_fit))
+    temp = integrate.quad(nll, zstar, np.inf, args=(Om_fit, h_fit, omegabh2_fit, m_v1_fit))
     return temp[0]
