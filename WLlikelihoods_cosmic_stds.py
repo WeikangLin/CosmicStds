@@ -208,15 +208,15 @@ def lnprob_BAO(theta, BAO_data_path, BAO_datasets):
 
 # CMB theta likelihood:
 
-def lnprior_CMB(theta): # keep the order of theta to be rdH0, Om, h, and m_v1
+def lnprior_CMB(theta): # keep the order of theta to be zstar rdH0, Om, h, and m_v1
     if len(theta)==3:
-        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.28<theta[2]<0.32:
+        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.01<theta[2]<0.99:
             return 0.0
     if len(theta)==4:
-        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.28<theta[2]<0.32 and 0.01<theta[3]<2.0:
+        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.01<theta[2]<0.99 and 0.01<theta[3]<2.0:
             return 0.0
     if len(theta)==5:
-        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.28<theta[2]<0.32 and 0.1<theta[3]<2.0 and 0<theta[3]<0.1:
+        if 1070<theta[0]<1110 and 0.01<theta[1]<0.1 and 0.01<theta[2]<0.99 and 0.1<theta[3]<2.0 and 0<theta[3]<0.1:
             return 0.0
     return -np.inf
 
